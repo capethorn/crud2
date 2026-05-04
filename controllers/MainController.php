@@ -5,18 +5,17 @@ class MainController extends TwigBaseController {
     public $template = "main.twig";
     public $title = "Главная";
     
-    public function getContext(): array {
+    public function getContext(): array
+    {
         $context = parent::getContext();
-        $context['menu_items'] = [
-            [
-                "title" => "Samsung S22",
-                "url_title" => "samsungS22"
-            ],
-            [
-                "title" => "Iphone 17",
-                "url_title" => "iphone17"
-            ]
-        ];
+        
+        // подготавливаем запрос SELECT * FROM space_objects
+        // вообще звездочку не рекомендуется использовать, но на первый раз пойдет
+        $query = $this->pdo->query("SELECT * FROM phone_objects");
+        
+        // стягиваем данные через fetchAll() и сохраняем результат в контекст
+        $context['phone_objects'] = $query->fetchAll();
+
         return $context;
     }
 }
