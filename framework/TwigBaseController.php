@@ -7,10 +7,9 @@
         protected \Twig\Environment $twig; 
         
     
-        public function __construct($twig)
-        {
-            $this->twig = $twig; // пробрасываем его внутрь
-        }
+    public function setTwig($twig) {
+        $this->twig = $twig;
+    }
         
         public function getContext() : array
         {

@@ -1,7 +1,7 @@
 <?php
 
 require_once "../vendor/autoload.php";
-
+require_once "../framework/autoload.php";
 require_once "../controllers/MainController.php";
 
 require_once "../controllers/Iphone17Controller.php";
@@ -20,36 +20,11 @@ $twig = new \Twig\Environment($loader, [
 ]);
 $twig->addExtension(new \Twig\Extension\DebugExtension()); // и активируем расширение
 
-$url = $_SERVER["REQUEST_URI"];
-
-$controller = new Controller404($twig);
-
 $pdo = new PDO("mysql:host=localhost;dbname=mobile_phone;charset=utf8", "root", "");
 
-if ($url == "/") {
-    $controller = new MainController($twig);
+$router = new Router($twig, $pdo);
+$router->add("#^/$#", MainController::class);
+$router->add("#^/iphone17$#", Iphone17Controller::class);
+$router->get_or_default(Controller404::class);
 
-} elseif (preg_match("#^/iphone17/image#", $url)) {
-    $controller = new Iphone17ImageController($twig);
-
-} elseif (preg_match("#^/iphone17/info#", $url)) {
-    $controller = new Iphone17InfoController($twig);
-
-} elseif (preg_match("#^/iphone17#", $url)) {
-    $controller = new Iphone17Controller($twig);
-
-} elseif (preg_match("#^/samsungS22/image#", $url)) {
-    $controller = new SamsungS22ImageController($twig);
-
-} elseif (preg_match("#^/samsungS22/info#", $url)) {
-    $controller = new SamsungS22InfoController($twig);
-
-} elseif (preg_match("#^/samsungS22#", $url)) {
-    $controller = new SamsungS22Controller($twig);
-}
-
-if ($controller) {
-    $controller->setPDO($pdo); 
-    $controller->get();
-}
 
