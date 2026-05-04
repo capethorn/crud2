@@ -1,0 +1,22 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+
+<div class="list">
+
+    {% for phone in phone_objects %}
+
+        <div>
+            <img src="{{ phone.image }}" width="200" alt="">
+            <h3>{{ phone.title }}</h3>
+
+            <a href="">Подробнее</a>
+            <a href="">Картинка</a>
+            <a href="">Описание</a>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}c
