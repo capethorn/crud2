@@ -1,7 +1,7 @@
-<li class="list-group-item d-flex me-2">
-    {{ macros.btn(item.title, "/" ~ item.url_title, false, 'dark') }}
-    
+{% import "macros.twig" as macros %}
+
+<li class="list-group-item d-flex gap-2">
+    {{ macros.btn(item.title, "/" ~ item.url_title, true, 'primary') }}
     {{ macros.btn("Картинка", "/" ~ item.url_title ~ "/image", false, 'dark') }}
-    
     {{ macros.btn("Описание", "/" ~ item.url_title ~ "/info", false, 'dark') }}
 </li>

@@ -2,21 +2,14 @@
 
 {% block content %}
 
-<div class="list">
+<ul class="list-group">
+    {% set items = [
+        { title: "iPhone 17", url_title: "iphone17" },
+        { title: "Samsung S22", url_title: "samsungS22" }
+    ] %}
 
-    {% for phone in phone_objects %}
-
-        <div>
-            <img src="{{ phone.image }}" width="200" alt="">
-            <h3>{{ phone.title }}</h3>
-
-            <a href="">Подробнее</a>
-            <a href="">Картинка</a>
-            <a href="">Описание</a>
-        </div>
-
+    {% for item in items %}
+        {% include "sub-template_main.twig" with { item: item } only %}
     {% endfor %}
-
-</div>
-
-{% endblock %}c
+</ul>
+{% endblock %}
