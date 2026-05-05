@@ -11,7 +11,7 @@ class SamsungS22InfoController extends SamsungS22Controller
         $context = parent::getContext();
 
         $context["info"] = "Samsung Galaxy S22 — флагманский смартфон Samsung с отличным дисплеем, камерой и высокой скоростью работы.";
-
+        $context['is_infoActive'] = true; 
         return $context;
     }
 }

@@ -11,6 +11,7 @@ class Iphone17ImageController extends Iphone17Controller
         $context = parent::getContext();
 
         $context["image_url"] = "/images/Iphone17pro.jpg";
+        $context['is_imgActive'] = true; 
 
         return $context;
     }

@@ -11,6 +11,7 @@ class Iphone17InfoController extends Iphone17Controller
         $context = parent::getContext();
 
         $context["info"] = "iPhone 17 — современный смартфон Apple с улучшенной камерой, мощным процессором и высокой производительностью.";
+        $context['is_infoActive'] = true; 
 
         return $context;
     }

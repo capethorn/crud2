@@ -11,7 +11,7 @@ class SamsungS22ImageController extends SamsungS22Controller
         $context = parent::getContext();
 
         $context["image_url"] = "/images/samsungS22.jpg";
-
+        $context['is_imgActive'] = true; 
         return $context;
     }
 }
