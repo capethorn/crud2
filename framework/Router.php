@@ -31,7 +31,7 @@ class Route {
     // функция с помощью которой добавляем маршрут
     public function add($route_regexp, $controller) {
         // по сути просто пихает маршрут с привязанным контроллером в $routes
-        array_push($this->routes, new Route($route_regexp, $controller));
+        array_push($this->routes, new Route("#^$route_regexp$#", $controller));
     }
 
     // функция которая должна по url найти маршрут и вызывать его функцию get
