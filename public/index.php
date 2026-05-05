@@ -25,7 +25,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=mobile_phone;charset=utf8", "root", 
 $router = new Router($twig, $pdo);
 $router->add("/", MainController::class);
 $router->add("/iphone17", Iphone17Controller::class);
-$router->add("/phone-objects/(\d+)", ObjectController::class); 
+$router->add("/phone-object/(\d+)", ObjectController::class); 
 
 $router->get_or_default(Controller404::class);
 

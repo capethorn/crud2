@@ -2,15 +2,17 @@
 {% from "macros.twig" import btn%}
 {% block content %}
     <h1>{{title}}</h1>
+    <div> <p>{{ description }}</p></div>
 
     <ul class="nav nav-pills mb-3">
-        <li class="nav-item">
-            {{btn("Картинка", "/" ~ url_title ~ "/image", is_active == 'image', 'primary') }}
+        <li class="nav-item">пше
+            {{btn("Картинка", "/" ~ url_title ~ "/image", is_imgActive, 'primary') }}
         </li>
         <li class="nav-item">
-            {{btn("Описание", "/" ~ url_title ~ "/info", is_active == 'info', 'primary') }}
+            {{btn("Описание", "/" ~ url_title ~ "/info", is_imgActive, 'primary') }}
         </li>
     </ul>
+     
     <div class="container">
         {% block objectContent %}{% endblock %}
     </div>
