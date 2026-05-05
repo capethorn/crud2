@@ -15,7 +15,7 @@ class ObjectController extends TwigBaseController {
         
         // передаем описание из БД в контекст
         $context['description'] = $data['description'];
-
+       
         return $context;
    }
  }
