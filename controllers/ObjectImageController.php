@@ -1,7 +1,7 @@
 <?php
 
-class ObjectController extends TwigBaseController {
-    public $template = "__object.twig";
+class ObjectImageController extends TwigBaseController {
+    public $template = "__object_image.twig";
     
     public function getContext(): array
     {
@@ -19,12 +19,12 @@ class ObjectController extends TwigBaseController {
             $context['title'] = $object['title'];
             $context['url_title'] = "phone-object";
             $context['my_id'] = $my_id;
-            $context['description'] = $object['description'] ?? "Нет описания";
-            $context['image'] = $object['image'] ?? "";
+            $context['image_url'] = $object['image'] ?? "/images/placeholder.jpg";
+            $context['is_imgActive'] = true;
         } else {
             $context['title'] = "Объект не найден";
             $context['my_id'] = $my_id;
-            $context['description'] = "Объект с ID {$my_id} не существует";
+            $context['image_url'] = "/images/error.gif";
         }
         
         return $context;

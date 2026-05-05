@@ -1,19 +1,23 @@
 {% extends "__layout.twig" %}
-{% from "macros.twig" import btn%}
-{% block content %}
-    <h1>{{title}}</h1>
-    <div> <p>{{ description }}</p></div>
+{% from "macros.twig" import btn %}
 
+{% block content %}
+    <h1>{{ title }}</h1>
+    
     <ul class="nav nav-pills mb-3">
         <li class="nav-item">
-            {{btn("Картинка", "/" ~ url_title ~ "/image", is_imgActive, 'primary') }}
+            {{ btn("Картинка", "/" ~ url_title ~ "/" ~ my_id ~ "/image", is_imgActive|default(false), 'primary') }}
         </li>
         <li class="nav-item">
-            {{btn("Описание", "/" ~ url_title ~ "/info", is_imgActive, 'primary') }}
+            {{ btn("Описание", "/" ~ url_title ~ "/" ~ my_id ~ "/info", is_infoActive|default(false), 'primary') }}
         </li>
     </ul>
      
     <div class="container">
-        {% block objectContent %}{% endblock %}
+        {% block objectContent %}
+            <div class="info-content">
+                <p>{{ description|default('Нет описания') }}</p>
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}

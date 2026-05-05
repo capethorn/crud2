@@ -1,7 +1,7 @@
 <?php
 
-class ObjectController extends TwigBaseController {
-    public $template = "__object.twig";
+class ObjectInfoController extends TwigBaseController {
+    public $template = "__object_info.twig";
     
     public function getContext(): array
     {
@@ -10,8 +10,8 @@ class ObjectController extends TwigBaseController {
         // Получаем my_id из URL
         $my_id = $this->params['my_id'] ?? $this->params[1] ?? 0;
         
-        // Запрашиваем данные объекта из БД
-        $query = $this->pdo->prepare("SELECT * FROM phone_objects WHERE id = :my_id");
+        // Запрашиваем данные объекта из БД - берем поле info
+        $query = $this->pdo->prepare("SELECT title, info, image FROM phone_objects WHERE id = :my_id");
         $query->execute(['my_id' => $my_id]);
         $object = $query->fetch();
         
@@ -19,12 +19,12 @@ class ObjectController extends TwigBaseController {
             $context['title'] = $object['title'];
             $context['url_title'] = "phone-object";
             $context['my_id'] = $my_id;
-            $context['description'] = $object['description'] ?? "Нет описания";
-            $context['image'] = $object['image'] ?? "";
+            $context['info'] = $object['info'] ?? "Нет информации";  // берем info из БД
+            $context['is_infoActive'] = true;
         } else {
             $context['title'] = "Объект не найден";
             $context['my_id'] = $my_id;
-            $context['description'] = "Объект с ID {$my_id} не существует";
+            $context['info'] = "Информация не найдена";
         }
         
         return $context;
