@@ -7,13 +7,14 @@ class ObjectController extends TwigBaseController {
     {
         $context = parent::getContext();
         
-        // готовим запрос к БД, допустим вытащим запись по id=3
-        // тут уже указываю конкретные поля, там более грамотно
-        $query = $this->pdo->query("SELECT description, id FROM phone_objects WHERE id=3");
-        // стягиваем одну строчку из базы
+        $query = $this->pdo->prepare("SELECT description, id FROM phone_objects WHERE id= :my_id");
+       
+        $query->bindValue("my_id", $this->params['id']);
+        $query->execute();
+
         $data = $query->fetch();
         
-        // передаем описание из БД в контекст
+
         $context['description'] = $data['description'];
         $context['is_infoActive'] = true; 
         $context['is_imgActive'] = true; 
