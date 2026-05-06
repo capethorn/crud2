@@ -6,13 +6,13 @@
     
     <ul class="nav nav-pills mb-3">
         <li class="nav-item">
-            {{ btn("Картинка", "/" ~ url_title ~ "/" ~ my_id ~ "/image", is_imgActive|default(false), 'primary') }}
+            {{ btn("Картинка", "/" ~ url_title ~ "/" ~ my_id ~ "?show=image", is_imgActive|default(false), 'primary') }}
         </li>
         <li class="nav-item">
-            {{ btn("Описание", "/" ~ url_title ~ "/" ~ my_id ~ "/info", is_infoActive|default(false), 'primary') }}
+           
+            {{ btn("Описание", "/" ~ url_title ~ "/" ~ my_id ~ "?show=info", is_infoActive|default(false), 'primary') }}
         </li>
     </ul>
-     
     <div class="container">
         {% block objectContent %}
             <div class="info-content">
