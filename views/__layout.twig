@@ -22,12 +22,11 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/">Главная</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/iphone17">Айфон 17</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/samsungS22">Самсунг S22</a>
-						</li>
+						{% for type in types %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/?type={{ type.type }}">{{ type.type|title }}</a>
+                    </li>
+                {% endfor %}
 					</ul>
 				</div>
 			</div>

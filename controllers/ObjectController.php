@@ -1,16 +1,16 @@
 <?php
+require_once "BasePhoneTwigController.php";
 
-class ObjectController extends TwigBaseController {
+class ObjectController extends BasePhoneTwigController {
     public $template = "__object.twig";
     
     public function getContext(): array
     {
         $context = parent::getContext();
         
-        // Получаем my_id из URL
         $my_id = $this->params['my_id'] ?? $this->params[1] ?? 0;
         
-        // Запрашиваем данные объекта из БД
+
         $query = $this->pdo->prepare("SELECT * FROM phone_objects WHERE id = :my_id");
         $query->execute(['my_id' => $my_id]);
         $object = $query->fetch();
