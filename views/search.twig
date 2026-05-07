@@ -4,20 +4,36 @@
 
 <h1>Поиск</h1>
 
-<form action="" method="GET">
-    <select name="type">
-        <option value="">Все типы</option>
-        <option value="Айфон">Айфон</option>
-        <option value="Самсунг">Самсунг</option>
-    </select>
-    <label>Название <input type="text" name="title"></label>
-    <button type="submit">Найти</button>
+<form method="GET" class="row g-3">
+    <div class="col-auto">
+        <select name="type" class="form-select">
+            <option value="Все" {% if old_type == 'Все' or old_type == '' %}selected{% endif %}>Все</option>
+            <option value="Айфон" {% if old_type == 'Айфон' %}selected{% endif %}>Айфон</option>
+            <option value="Самсунг" {% if old_type == 'Самсунг' %}selected{% endif %}>Самсунг</option>
+        </select>
+    </div>
+    
+    <div class="col-auto">
+        <input type="text" name="title" class="form-control" value="{{ old_title }}">
+    </div>
+    
+    <div class="col-auto">
+        <input type="text" name="description" class="form-control" value="{{ old_description }}">
+    </div>
+    
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
 </form>
 
 <hr>
 
-{% for object in phone_objects %}
-    <div><a href="/phone-object/{{ object.id }}">{{ object.title }}</a></div>
+{% for item in objects %}
+    <div style="border:1px solid #ccc; padding:10px; margin:5px 0;">
+        <a href="/phone-object/{{ item.id }}">{{ item.title }}</a>
+    </div>
+{% else %}
+    <div>Ничего не найдено</div>
 {% endfor %}
 
 {% endblock %}

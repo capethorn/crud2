@@ -8,24 +8,35 @@ class SearchController extends BasePhoneTwigController {
     {
         $context = parent::getContext();
         
-        $type = isset($_GET['type']) ? $_GET['type'] : '';
-        $title = isset($_GET['title']) ? $_GET['title'] : '';
+        $type = $_GET['type'] ?? '';
+        $title = $_GET['title'] ?? '';
+        $description = $_GET['description'] ?? '';
         
-        $sql = <<<EOL
-SELECT id, title
-FROM phone_objects
-WHERE (:type = '' OR type = :type)
-  AND (:title = '' OR title LIKE CONCAT('%', :title, '%'))
-EOL;
+        $sql = "SELECT * FROM phone_objects WHERE 1=1";
+        $params = [];
+        
+        if (!empty($type) && $type != 'Все') {
+            $sql .= " AND type = :type";
+            $params['type'] = $type;
+        }
+        
+        if (!empty($title)) {
+            $sql .= " AND title LIKE :title";
+            $params['title'] = "%{$title}%";
+        }
+        
+        if (!empty($description)) {
+            $sql .= " AND description LIKE :description";
+            $params['description'] = "%{$description}%";
+        }
         
         $query = $this->pdo->prepare($sql);
-        $query->bindValue("type", $type);
-        $query->bindValue("title", $title);
-        $query->execute();
+        $query->execute($params);
         
-        $context['phone_objects'] = $query->fetchAll();
-        $context['selected_type'] = $type;
-        $context['search_title'] = $title;
+        $context['objects'] = $query->fetchAll();
+        $context['old_type'] = $type;
+        $context['old_title'] = $title;
+        $context['old_description'] = $description;
         
         return $context;
     }
