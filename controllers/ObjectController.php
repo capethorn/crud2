@@ -4,58 +4,40 @@ require_once "BasePhoneTwigController.php";
 class ObjectController extends BasePhoneTwigController {
     public $template = "__object.twig";
     
-    public function getContext(): array
+    public function getContext(): array 
     {
-        
         $context = parent::getContext();
         
-      
         $my_id = $this->params['my_id'] ?? $this->params[1] ?? 0;
         
-        $show = $_GET['show'] ?? null;
+        $query = $this->pdo->prepare("SELECT description, image, info, id, title FROM phone_objects WHERE id = :my_id");
+        $query->bindValue("my_id", $my_id);
+        $query->execute();
         
-        $query = $this->pdo->prepare("SELECT * FROM phone_objects WHERE id = :my_id");
-        $query->execute(['my_id' => $my_id]);
-        $object = $query->fetch();
+        $data = $query->fetch();
         
-        if (!$object) {
-            
+        if (!$data) {
             $context['title'] = "Объект не найден";
-            $context['my_id'] = $my_id;
-            $context['description'] = "Объект с ID {$my_id} не существует";
-            $context['is_infoActive'] = false;
-            $context['is_imgActive'] = false;
             return $context;
         }
         
-      
-        $context['title'] = $object['title'];
-        $context['url_title'] = "phone-object";
-        $context['my_id'] = $my_id;
-        $context['image'] = $object['image'] ?? "";
-        $context['description'] = $object['description'] ?? "Нет описания";
-        $context['info'] = $object['info'] ?? "Нет полной информации";
+        $context['title'] = $data['title'];
+        $context['description'] = $data['description'];
+        $context['url_title'] = "phone-object/" . $data['id'];
         
-
-        if ($show === 'image') {
-            $context['is_imgActive'] = true;
-            $context['is_infoActive'] = false;
-            $context['image_url'] = $object['image'] ?? "/images/placeholder.jpg";
+        $show = $_GET['show'] ?? '';
         
-            $this->template = "__object_image.twig";
-        }
-     
-        else if ($show === 'info') {
-            $context['is_imgActive'] = false;
-            $context['is_infoActive'] = true;
-         
-            $this->template = "__object_info.twig";
-        }
-        
-        else {
-            $context['is_imgActive'] = false;
-            $context['is_infoActive'] = false;
-           
+        if ($show == 'image') {
+            $context['is_image'] = true;
+            $context['is_info'] = false;
+            $context['image'] = $data['image'];
+        } else if ($show == 'info') {
+            $context['is_info'] = true;
+            $context['is_image'] = false;
+            $context['info'] = $data['info'];
+        } else {
+            $context['is_image'] = false;
+            $context['is_info'] = false;
         }
         
         return $context;
