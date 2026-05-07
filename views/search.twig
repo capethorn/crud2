@@ -2,6 +2,22 @@
 
 {% block content %}
 
-Поиск
+<h1>Поиск</h1>
+
+<form action="" method="GET">
+    <select name="type">
+        <option value="">Все типы</option>
+        <option value="Айфон">Айфон</option>
+        <option value="Самсунг">Самсунг</option>
+    </select>
+    <label>Название <input type="text" name="title"></label>
+    <button type="submit">Найти</button>
+</form>
+
+<hr>
+
+{% for object in phone_objects %}
+    <div><a href="/phone-object/{{ object.id }}">{{ object.title }}</a></div>
+{% endfor %}
 
 {% endblock %}
