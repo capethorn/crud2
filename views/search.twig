@@ -6,6 +6,7 @@
 
 <form method="GET" class="row g-3">
     <div class="col-auto">
+        <label class="form-label">Тип</label>
         <select name="type" class="form-select">
             <option value="Все" {% if old_type == 'Все' or old_type == '' %}selected{% endif %}>Все</option>
             <option value="Айфон" {% if old_type == 'Айфон' %}selected{% endif %}>Айфон</option>
@@ -14,14 +15,16 @@
     </div>
     
     <div class="col-auto">
+        <label class="form-label">Название</label>
         <input type="text" name="title" class="form-control" value="{{ old_title }}">
     </div>
     
     <div class="col-auto">
-        <input type="text" name="description" class="form-control" value="{{ old_description }}">
+        <label class="form-label">Информация</label>
+        <input type="text" name="info" class="form-control" value="{{ old_info }}">
     </div>
     
-    <div class="col-auto">
+    <div class="col-auto" style="display: flex; align-items: end;">
         <button type="submit" class="btn btn-primary">Найти</button>
     </div>
 </form>

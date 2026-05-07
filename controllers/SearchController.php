@@ -10,7 +10,7 @@ class SearchController extends BasePhoneTwigController {
         
         $type = $_GET['type'] ?? '';
         $title = $_GET['title'] ?? '';
-        $description = $_GET['description'] ?? '';
+        $search_info = $_GET['info'] ?? '';  
         
         $sql = "SELECT * FROM phone_objects WHERE 1=1";
         $params = [];
@@ -25,9 +25,9 @@ class SearchController extends BasePhoneTwigController {
             $params['title'] = "%{$title}%";
         }
         
-        if (!empty($description)) {
-            $sql .= " AND description LIKE :description";
-            $params['description'] = "%{$description}%";
+        if (!empty($search_info)) {
+            $sql .= " AND info LIKE :info";  
+            $params['info'] = "%{$search_info}%";
         }
         
         $query = $this->pdo->prepare($sql);
@@ -36,8 +36,8 @@ class SearchController extends BasePhoneTwigController {
         $context['objects'] = $query->fetchAll();
         $context['old_type'] = $type;
         $context['old_title'] = $title;
-        $context['old_description'] = $description;
+        $context['old_info'] = $search_info;  
         
         return $context;
     }
-}
+}   

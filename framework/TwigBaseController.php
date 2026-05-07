@@ -2,8 +2,8 @@
     require_once "BaseController.php"; 
 
     class TwigBaseController extends BaseController {
-        public $title = ""; // название страницы
-        public $template = ""; // шаблон страницы
+        public $title = ""; 
+        public $template = ""; 
         protected \Twig\Environment $twig; 
         
     
@@ -13,8 +13,8 @@
         
         public function getContext() : array
         {
-            $context = parent::getContext(); // вызываем родительский метод
-            $context['title'] = $this->title; // добавляем title в контекст
+            $context = parent::getContext(); 
+            $context['title'] = $this->title; 
 
             return $context;
         }
