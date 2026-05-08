@@ -1,24 +1,23 @@
 {% extends "__layout.twig" %}
-{% from "macros.twig" import btn %}
 
 {% block content %}
     <h1>{{ title }}</h1>
     
     <ul class="nav nav-pills mb-3">
         <li class="nav-item">
-            {{ btn("Картинка", "/" ~ url_title ~ "?show=image", is_image, "primary") }}
+            <a href="/phone-object/{{ my_id }}?show=image" class="btn {% if active == 'image' %}btn-primary{% else %}btn-link{% endif %}">Картинка</a>
         </li>
         <li class="nav-item">
-            {{ btn("Описание", "/" ~ url_title ~ "?show=info", is_info, "primary") }}
+            <a href="/phone-object/{{ my_id }}?show=info" class="btn {% if active == 'info' %}btn-primary{% else %}btn-link{% endif %}">Описание</a>
         </li>
     </ul>
     
     <div class="container">
-        {% if is_image %}
+        {% if active == 'image' %}
             <div class="text-center">
                 <img src="{{ image }}" alt="{{ title }}" style="max-width: 100%; max-height: 500px;">
             </div>
-        {% elseif is_info %}
+        {% elseif active == 'info' %}
             <div class="alert alert-info">
                 {{ info }}
             </div>

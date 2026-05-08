@@ -9,8 +9,11 @@
         <label class="form-label">Тип</label>
         <select name="type" class="form-select">
             <option value="Все" {% if old_type == 'Все' or old_type == '' %}selected{% endif %}>Все</option>
-            <option value="Айфон" {% if old_type == 'Айфон' %}selected{% endif %}>Айфон</option>
-            <option value="Самсунг" {% if old_type == 'Самсунг' %}selected{% endif %}>Самсунг</option>
+            {% for type in types %}
+                <option value="{{ type.id }}" {% if old_type == type.id %}selected{% endif %}>
+                    {{ type.name }}
+                </option>
+            {% endfor %}
         </select>
     </div>
     
