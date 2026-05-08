@@ -6,7 +6,6 @@ class PhoneObjectCreateController extends BasePhoneTwigController {
 
     public function get(array $context) 
     {
-        echo $_SERVER['REQUEST_METHOD'];
         
         parent::get($context); 
     }

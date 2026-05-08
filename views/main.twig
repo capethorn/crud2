@@ -1,25 +1,31 @@
 {% extends "__layout.twig" %}
 
 {% block content %}
-<div class="d-flex flex-row flex-nowrap gap-3 overflow-auto">
-    {% for phone in phone_objects %}
-    <div class="flex-shrink-0" style="width: 200px;">
-        <div class="border p-2 d-flex flex-column justify-content-between" style="width: 100%;">
-            <div class="img-thumbnail mb-2" style="width: 100%; height: 160px; overflow:hidden">
-                <img src="{{ phone.image }}" 
-                     style="height: 100%; width: 100%; object-fit: contain;" 
-                     alt="{{ phone.title }}"
-                     onerror="this.src='/images/error.gif'">
-            </div>
-            <div class="d-flex flex-column">
-                <a class="btn btn-primary btn-sm mb-1" href="/phone-object/{{ phone.id }}">{{ phone.title }}</a>
-                <div class="d-flex justify-content-center small">
-                    <a class="me-2" href="/phone-object/{{ phone.id }}?show=image">Картинка</a>
-                    <a href="/phone-object/{{ phone.id }}?show=info">Описание</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+	<div class="row d-flex">
+		{% for phone in phone_objects %}
+			<div class="flex-shrink-0" style="width: 200px;">
+				<div class="border p-2 d-flex flex-column justify-content-between position-relative" style="width: 100%;">
+					<div class="position-absolute" style="right: 4px; top: 4px">
+							<form action="/phone-object/{{ phone.id }}/delete" method="POST">
+								<input type="hidden" name="id" value="{{ phone.id }}">
+								<button type="submit" class="btn btn-danger btn-sm">
+									<i class="fas fa-times"></i>
+								</button>
+							</form>
+					</div>
+
+					<div class="img-thumbnail mb-2" style="width: 100%; height: 160px; overflow:hidden">
+						<img src="{{ phone.image }}" style="height: 100%; width: 100%; object-fit: contain;" alt="{{ phone.title }}" onerror="this.src='/images/error.gif'">
+					</div>
+					<div class="d-flex flex-column">
+						<a class="btn btn-primary btn-sm mb-1" href="/phone-object/{{ phone.id }}">{{ phone.title }}</a>
+						<div class="d-flex justify-content-center small">
+							<a class="me-2" href="/phone-object/{{ phone.id }}?show=image">Картинка</a>
+							<a href="/phone-object/{{ phone.id }}?show=info">Описание</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}
