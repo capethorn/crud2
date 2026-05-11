@@ -1,42 +1,60 @@
 {% extends "__layout.twig" %}
 
 {% block content %}
-    <h1>Добавление модели телефона</h1>
+    <h1>{% if object.id %}Редактирование{% else %}Добавление{% endif %} модели телефона</h1>
     <hr>
 
     {% if message %}
     <div class="alert alert-info">
         {{ message }}
-        <a href="/phone-object/{{ id }}">открыть новую модель</a>
+        {% if object.id %}
+            <a href="/phone-object/{{ object.id }}">просмотреть объект</a>
+        {% else %}
+            <a href="/phone-object/{{ id }}">открыть новую модель</a>
+        {% endif %}
     </div>
     {% endif %}
 
     <form action="" enctype="multipart/form-data" method="POST" class="row g-3">
         <div class="col-4">
             <label class="form-label">Название</label>
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" name="title" value="{{ object.title|default('') }}">
         </div>
         <div class="col-4">
             <label class="form-label">Краткое описание</label>
-            <input type="text" class="form-control" name="description">
+            <input type="text" class="form-control" name="description" value="{{ object.description|default('') }}">
         </div>
         <div class="col-4">
             <label class="form-label">Тип</label>
             <select class="form-control" name="type">
                 {% for type in types %}
-                    <option value="{{ type.id }}">{{ type.name }}</option>
+                    <option value="{{ type.id }}" {% if object.type == type.id %}selected{% endif %}>
+                        {{ type.name }}
+                    </option>
                 {% endfor %}
             </select>
         </div>
-        <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Картинка</label>
-            <input class="form-control" type="file" name="image" multiple>
-        </div>
+        
         <div class="col-12">
-            <textarea name="info" placeholder="Полное описание..." class="form-control" rows="5"></textarea>
+            {% if object.image %}
+                <div class="mb-2">
+                    <img src="{{ object.image }}" style="max-width: 100px;">
+                </div>
+                <input type="hidden" name="existing_image" value="{{ object.image }}">
+            {% endif %}
+            <label class="form-label">Картинка</label>
+            <input class="form-control" type="file" name="image" accept="image/*">
         </div>
+        
+        <div class="col-12">
+            <textarea name="info" placeholder="Полное описание..." class="form-control" rows="5">{{ object.info|default('') }}</textarea>
+        </div>
+        
         <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="submit" class="btn btn-primary">
+                {% if object.id %}Сохранить{% else %}Добавить{% endif %}
+            </button>
+            <a href="/" class="btn btn-secondary">Отмена</a>
         </div>
     </form>
 

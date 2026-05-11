@@ -3,6 +3,10 @@
 {% block content %}
     <h1>{{ title }}</h1>
     
+    <div class="mb-3">
+        <a href="/phone-object/{{ my_id }}/edit" class="btn btn-warning">Редактировать</a>
+    </div>
+    
     <ul class="nav nav-pills mb-3">
         <li class="nav-item">
             <a href="/phone-object/{{ my_id }}?show=image" class="btn {% if active == 'image' %}btn-primary{% else %}btn-link{% endif %}">Картинка</a>
