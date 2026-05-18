@@ -33,22 +33,47 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/add">Добавить</a>
                     </li>
-
-					<li class="nav-item">
-   					 <a class="nav-link" href="/type/add">Добавить тип</a>
-					</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/type/add">Добавить тип</a>
+                    </li>
                 </ul>
 
-                <form action="/set-welcome/">
-                        <input type="text" name="message" class = "form-control mr-2 ml-2">                    
-                    </form>
+                <form action="/set-welcome/" class="d-flex me-2">
+                    <input type="text" name="message" class="form-control form-control-sm me-2">
+                </form>
+                
+                {% if session_is_logged %}
+                <form action="/logout" method="GET" class="d-flex">
+                    <button type="submit" class="btn btn-sm btn-danger">Выйти</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </nav>
 
     <div class="container">
-        {% block content %}
-        {% endblock %}
+        <div class="row">
+            <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="col-md-3">
+                {% if history is defined and history|length > 0 %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Последние страницы
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for url in history %}
+                            <li class="list-group-item">
+                                <a href="{{ url }}">{{ url }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>
