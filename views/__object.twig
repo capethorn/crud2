@@ -1,6 +1,15 @@
 {% extends "__layout.twig" %}
 
 {% block content %}
+   
+   Сообщение из сессии: {{my_session_message}}
+   <br>
+
+   Последнее сообщение:<br>
+   {% for m in messages %}
+    {{m}}<br>
+    {% endfor%}
+    <hr>
     <h1>{{ title }}</h1>
     
     <div class="mb-3">

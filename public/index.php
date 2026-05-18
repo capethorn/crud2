@@ -11,6 +11,7 @@ require_once "../controllers/TypeCreateController.php";
 require_once "../controllers/PhoneObjectDeleteController.php";
 require_once "../controllers/PhoneObjectUpdateController.php";
 require_once "../middlewares/LoginRequiredMiddeware.php";
+require_once "../controllers/SetWelcomeController.php";
 
 $loader = new \Twig\Loader\FilesystemLoader("../views");
 $twig = new \Twig\Environment($loader, [
@@ -32,4 +33,6 @@ $router->add("/phone-object/(?P<id>\d+)/delete", PhoneObjectDeleteController::cl
         ->middleware(new LoginRequiredMiddeware());
 $router->add("/phone-object/(?P<id>\d+)/edit", PhoneObjectUpdateController::class)
         ->middleware(new LoginRequiredMiddeware());
+        $router->add("/set-welcome/", SetWelcomeController::class);
 $router->get_or_default(Controller404::class);
+

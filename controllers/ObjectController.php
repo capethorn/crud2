@@ -43,6 +43,11 @@ class ObjectController extends BasePhoneTwigController {
             $context['is_info'] = false;
             $context['active'] = '';
         }
+
+        $context["my_session_message"] = isset($_SESSION['welcome_message']) ? $_SESSION['welcome_message'] : "";
+
+        $context["messages"] = isset($_SESSION['messages']) ? $_SESSION['messages'] : "";
+
         
         return $context;
     }
