@@ -23,7 +23,6 @@ class PhoneObjectUpdateController extends BasePhoneTwigController {
         $type = $_POST['type'] ?? 0;
         $info = $_POST['info'] ?? '';
 
-        // Загрузка картинки
         $image_url = $_POST['existing_image'] ?? '';
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $tmp_name = $_FILES['image']['tmp_name'];

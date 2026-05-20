@@ -7,7 +7,6 @@ class TypeCreateController extends BasePhoneTwigController {
     
     public function get(array $context)
     {
-        // Получаем список существующих типов
         $query = $this->pdo->query("SELECT * FROM object_types ORDER BY id");
         $context['existing_types'] = $query->fetchAll();
         
@@ -32,7 +31,6 @@ class TypeCreateController extends BasePhoneTwigController {
         $query->bindValue("image", $image_url);
         $query->execute();
         
-        // После добавления получаем обновленный список
         $query = $this->pdo->query("SELECT * FROM object_types ORDER BY id");
         $context['existing_types'] = $query->fetchAll();
         
