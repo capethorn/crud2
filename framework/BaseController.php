@@ -21,12 +21,6 @@ abstract class BaseController {
             session_start();
         }
         
-        $currentUrl = $_SERVER['REQUEST_URI'];
-        if ($currentUrl != '/set-welcome/' && $currentUrl != '/set-welcome' && $currentUrl != '/login' && $currentUrl != '/logout') {
-            if (!isset($_SESSION['history'])) $_SESSION['history'] = [];
-            $_SESSION['history'] = array_slice(array_unique([$currentUrl, ...$_SESSION['history']]), 0, 10);
-        }
-        
         $method = $_SERVER['REQUEST_METHOD'];
         $context = $this->getContext();
         $context['history'] = $_SESSION['history'] ?? [];
